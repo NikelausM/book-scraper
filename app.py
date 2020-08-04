@@ -27,12 +27,11 @@ if __name__ == "__main__":
     # extract the books page and its books
     page = AllBooksPage(page_content)
 
-    books = page.books
-
     # Get all pages
-    with Bar("Scraping web pages", max=page.page_count) as bar:
-        for page_num in range(1, page.page_count):
-            url = BASE_URL + f"/catalogue/page-{page_num + 1}.html"
+    with Bar("Scraping web pages", max=page.page_count, suffix='%(percent)d%%') as bar:
+        books = []
+        for page_num in range(page.page_count):
+            url = BASE_URL + f"/catalogue/page-{page_num}.html"
             page_content = requests.get(url).content
             logger.debug("Creating AllBooksPage from page content.")
             page = AllBooksPage(page_content)
