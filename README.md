@@ -41,3 +41,5 @@ python app.py
     - Allows a web page to be scraped (parses its HTML or XML)
 - [requests](https://pypi.org/project/requests/)
     - Allows sending HTTP requests
+- [logging](https://docs.python.org/3/library/logging.html)
+    - Allows for logging information.
