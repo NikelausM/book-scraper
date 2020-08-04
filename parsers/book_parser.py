@@ -63,7 +63,7 @@ class BookParser:
         logger.debug("Finding book link...")
         locator = BookLocators.LINK_LOCATOR
         item_url = self.parent.select_one(locator).attrs["href"]
-        logger.debug(f"Found book name, `{item_name}`.")
+        logger.debug(f"Found book name, `{item_url}`.")
         return item_url
 
     @property

@@ -11,6 +11,8 @@ logger = logging.getLogger("scraping.all_books_page")
 
 
 class AllBooksPage:
+    """Class that retreives a web page, its books, and page count."""
+
     def __init__(self, page_content: bytes):
         """
         Parameters
