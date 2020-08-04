@@ -19,6 +19,7 @@ The purpose of this application was to become more familiar with web scraping.
     - Look at cheapest books
     - Get next available book in catalogue
     - Exit menu
+- Console menu also has a progress bar
 
 ## Screenshots
 <img src="./screenshots/main.PNG" alt="A screenshot of the application being run in the console. It shows the div tags of class quote of a web page.">
