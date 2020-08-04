@@ -1,7 +1,5 @@
 import re
 
-from bs4 import Beautifulparent
-
 from locators.book_locators import BookLocators
 
 
@@ -21,6 +19,9 @@ class BookParser:
 
     def __init__(self, parent):
         self.parent = parent
+
+    def __repr__(self):
+        return f"<Book {self.name}, £{self.price}, ({self.rating} stars)>"
 
     @property
     def name(self):
@@ -49,7 +50,7 @@ class BookParser:
         star_rating_element = self.parent.select_one(locator)
         # ['star-rating', 'Three']
         classes = star_rating_element.attrs["class"]
-        rating_classes = filter(lambda x: x != "star-rating", classes)
+        rating_classes = [r for r in classes if r != "star-rating"]
         rating_number = BookParser.RATINGS.get(
             rating_classes[0])  # None if not found
-        return next(rating_classes)
+        return rating_number
