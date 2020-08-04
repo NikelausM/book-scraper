@@ -22,7 +22,7 @@ The purpose of this application was to become more familiar with web scraping.
 - Console menu also has a progress bar
 
 ## Screenshots
-### Screenshot of Booke Catalogue Website
+### Screenshot of Book Catalogue Website
 <img src="./screenshots/website.PNG" alt="A screenshot of the website being scraped. It is a website with a catalogue of books.">
 
 ### Screenshot of Console Menu
