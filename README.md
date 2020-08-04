@@ -8,12 +8,17 @@
 - [Technologies](#technologies)
 
 ## Introduction
-Book Scraper is a python application that scrapes the web page at http://books.toscrape.com.
+Book Scraper is a python application that scrapes the web page at http://books.toscrape.com. It then allows you to look at the book data located on that web page using a console menu.
 
 The purpose of this application was to become more familiar with web scraping.
 
 ## Features
-- Scrapes the web page http://books.toscrape.com
+- Scrapes the web site: http://books.toscrape.com
+- Console menu with the options:
+    - Look at highest rated books
+    - Look at cheapest books
+    - Get next available book in catalogue
+    - Exit menu
 
 ## Screenshots
 <img src="./screenshots/main.PNG" alt="A screenshot of the application being run in the console. It shows the div tags of class quote of a web page.">
