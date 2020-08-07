@@ -1,50 +1,18 @@
 import logging
 import requests
-import aiohttp
-import async_timeout
 import asyncio
 import time
-
 
 import menu
 
 from progress.bar import Bar
 
 from pages.all_books_page import AllBooksPage
+from async_req.async_req import fetch_page, get_multiple_pages
 
-logger = logging.getLogger("scraping.menu")
-
-
-async def fetch_page(session, url, bar):
-    page_start = time.time()
-    async with async_timeout.timeout(10):
-        async with session.get(url) as response:
-            logger.info(f"Page took {time.time() - page_start}")
-
-            # suspend before download has completed
-            response_text = await response.text()
-
-            # update progress bar
-            bar.next()
-
-            # return html contents
-            return response_text
-
-
-async def get_multiple_pages(loop, *urls):
-    # progress bar
-    with Bar("Scraping web pages", max=page.page_count,
-             suffix='%(percent)d%%') as bar:
-        tasks = []
-        async with aiohttp.ClientSession(loop=loop) as session:
-            for url in urls:
-                tasks.append(fetch_page(session, url, bar))
-
-            grouped_tasks = asyncio.gather(*tasks)
-            # may not be in order
-            return await grouped_tasks
 
 if __name__ == "__main__":
+
     logging.basicConfig(
         format="%(asctime)s %(levelname)-8s" +
         " [%(filename)s:%(lineno)d]" +
@@ -74,7 +42,7 @@ if __name__ == "__main__":
         for page_num in range(0, page.page_count)
     ]
     start = time.time()
-    pages = loop.run_until_complete(get_multiple_pages(loop, *urls))
+    pages = loop.run_until_complete(get_multiple_pages(page, loop, *urls))
 
     print(f"Total page requests took {time.time() - start}")
 
