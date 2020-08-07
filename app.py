@@ -32,11 +32,9 @@ if __name__ == "__main__":
     BASE_URL = "http://books.toscrape.com"
 
     page_content: Union[str, bytes] = requests.get(BASE_URL).content
-    print("page_content: ", type(page_content))
 
     # extract the books page and its books
     page = AllBooksPage(page_content)
-    print("page: ", type(page))
 
     loop = asyncio.get_event_loop()
 
@@ -47,8 +45,6 @@ if __name__ == "__main__":
     start = time.time()
     pages: List[str]
     pages = loop.run_until_complete(get_multiple_pages(page, loop, *urls))
-    print("pages: ", type(pages))
-    print("pages[0]: ", type(pages[0]))
 
     logger.info(f"Total page requests took {time.time() - start}")
 
