@@ -1,8 +1,8 @@
 import re
 import logging
-
+from re import Match
 from bs4 import BeautifulSoup
-from typing import List
+from typing import Union, List
 
 from locators.all_books_page import AllBooksPageLocators
 from parsers.book_parser import BookParser
@@ -13,7 +13,7 @@ logger = logging.getLogger("scraping.all_books_page")
 class AllBooksPage:
     """Class that retreives a web page, its books, and page count."""
 
-    def __init__(self, page_content: bytes):
+    def __init__(self, page_content: Union[str, bytes]):
         """
         Parameters
         ----------
@@ -34,7 +34,7 @@ class AllBooksPage:
                 self.soup.select(AllBooksPageLocators.BOOKS)]
 
     @property
-    def page_count(self):
+    def page_count(self) -> int:
         """Returns page count of website.
 
         Returns
@@ -48,6 +48,6 @@ class AllBooksPage:
             f"Found number of catalogue pages available: `{content}`.")
         pattern = "Page [0-9]+ of ([0-9]+)"
         matcher = re.search(pattern, content)
-        pages = int(matcher.group(1))
+        pages = int(matcher.group(1))  # type: ignore
         logger.debug(f"Extracted nuber of pages as integer: `{pages}`.")
         return pages
