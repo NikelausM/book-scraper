@@ -17,14 +17,14 @@ class Menu:
     """
 
     MENU_PROMPT = """
-    Enter one of the following
+Enter one of the following
 
-    - 'b' to look at highest rated books
-    - 'c' to look at the cheapest books
-    - 'n' to just get the next available book on the catalogue
-    - 'q' to exit
+- 'b' to look at highest rated books
+- 'c' to look at the cheapest books
+- 'n' to just get the next available book on the catalogue
+- 'q' to exit
 
-    Enter your choice: """
+Enter your choice: """
 
     def __init__(self, books):
         """

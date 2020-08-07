@@ -28,7 +28,8 @@ class AllBooksPage:
         """Returns the books on the books index page."""
 
         logger.debug(
-            f"Finding all books in the page using `{AllBooksPageLocators.BOOKS}`.")
+            f"Finding all books in the page using" +
+            f"`{AllBooksPageLocators.BOOKS}`.")
         return [BookParser(e) for e in
                 self.soup.select(AllBooksPageLocators.BOOKS)]
 
