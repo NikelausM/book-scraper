@@ -55,7 +55,6 @@ if __name__ == "__main__":
         logger.debug("Creating AllBooksPage from page content.")
         page = AllBooksPage(page_content)
         books.extend(page.books)
-        pass
 
     # Create and print out menu
     newMenu = menu.Menu(books)
