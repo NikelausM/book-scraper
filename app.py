@@ -1,7 +1,10 @@
 import logging
-import asyncio
+import requests
 import aiohttp
+import async_timeout
+import asyncio
 import time
+
 
 import menu
 
@@ -9,36 +12,37 @@ from progress.bar import Bar
 
 from pages.all_books_page import AllBooksPage
 
+logger = logging.getLogger("scraping.menu")
 
-async def fetch_page(session, url):
+
+async def fetch_page(session, url, bar):
     page_start = time.time()
-    # if session.get takes longer than 10 seconds then
-    # an exception will be raised
     async with async_timeout.timeout(10):
         async with session.get(url) as response:
-            # before returning response status it can get suspended
-            # until response is received
-            print(f"Page took {time.time() - page_start}")
-            return response.status
+            logger.info(f"Page took {time.time() - page_start}")
+
+            # suspend before download has completed
+            response_text = await response.text()
+
+            # update progress bar
+            bar.next()
+
+            # return html contents
+            return response_text
 
 
 async def get_multiple_pages(loop, *urls):
-    tasks = []
-    # use same loop as before
-    async with aiohttp.ClientSession(loop=loop) as session:
-        for url in urls:
-            # Create coroutine and put in tasks list
-            tasks.append(fetch_page(session, url))
-        # wait for tasks here
-        # gather alls tasks in list and treat as single task
-        # to execute in loop. Awaits each task and only returns
-        # when all complete
-        grouped_tasks = asyncio.gather(*tasks)
+    # progress bar
+    with Bar("Scraping web pages", max=page.page_count,
+             suffix='%(percent)d%%') as bar:
+        tasks = []
+        async with aiohttp.ClientSession(loop=loop) as session:
+            for url in urls:
+                tasks.append(fetch_page(session, url, bar))
 
-        # we need to await them (yield from)
-        # allows us to suspend execution here and wait
-        # until something happens then resume
-        return await grouped_tasks
+            grouped_tasks = asyncio.gather(*tasks)
+            # may not be in order
+            return await grouped_tasks
 
 if __name__ == "__main__":
     logging.basicConfig(
@@ -63,17 +67,24 @@ if __name__ == "__main__":
     # extract the books page and its books
     page = AllBooksPage(page_content)
 
+    loop = asyncio.get_event_loop()
+
+    urls = [
+        BASE_URL + f"/catalogue/page-{page_num}.html"
+        for page_num in range(0, page.page_count)
+    ]
+    start = time.time()
+    pages = loop.run_until_complete(get_multiple_pages(loop, *urls))
+
+    print(f"Total page requests took {time.time() - start}")
+
     # Get all pages
-    with Bar("Scraping web pages", max=page.page_count,
-             suffix='%(percent)d%%') as bar:
-        books = []
-        for page_num in range(page.page_count):
-            url = BASE_URL + f"/catalogue/page-{page_num}.html"
-            page_content = requests.get(url).content
-            logger.debug("Creating AllBooksPage from page content.")
-            page = AllBooksPage(page_content)
-            books.extend(page.books)
-            bar.next()
+    books = []
+
+    for page_content in pages:
+        logger.debug("Creating AllBooksPage from page content.")
+        page = AllBooksPage(page_content)
+        books.extend(page.books)
 
     # Create and print out menu
     newMenu = menu.Menu(books)
