@@ -80,7 +80,7 @@ class BookParser:
         locator = BookLocators.PRICE_LOCATOR
         item_price = self.parent.select_one(locator).string
 
-        pattern = "£([0-9]+\.[0-9]+)"
+        pattern = r"£([0-9]+\.[0-9]+)"
         matcher = re.search(pattern, item_price)
         float_price = float(matcher.group(1))  # 51.77
         logger.debug(f"Found book price, `{float_price}`.")
