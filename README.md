@@ -14,6 +14,7 @@ The purpose of this application was to become more familiar with web scraping.
 
 ## Features
 - Scrapes the web site: http://books.toscrape.com
+- Asynchronous requests
 - Console menu with the options:
     - Look at highest rated books
     - Look at cheapest books
@@ -43,3 +44,12 @@ python app.py
     - Allows sending HTTP requests
 - [logging](https://docs.python.org/3/library/logging.html)
     - Allows for logging information.
+- [asyncio](https://docs.python.org/3/library/asyncio.html)
+    - For using event loops.
+- [aiohttp](https://docs.aiohttp.org/en/stable/)
+    - For creating asynchronous HTTP Client/Server connections with asyncio.
+- [async_timeout](https://pypi.org/project/async-timeout/)
+    - Asyncio-compatible timeout context manager.
+        - Timeouts requests that take too long.
+- [time](https://docs.python.org/3/library/time.html)
+    - For timing code execution time.
