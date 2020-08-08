@@ -24,10 +24,10 @@ The purpose of this application was to become more familiar with web scraping.
 
 ## Screenshots
 ### Screenshot of Book Catalogue Website
-<img src="./screenshots/website.PNG" alt="A screenshot of the website being scraped. It is a website with a catalogue of books.">
+<img src="./images/screenshots/website.PNG" alt="A screenshot of the website being scraped. It is a website with a catalogue of books.">
 
 ### Screenshot of Console Menu
-<img src="./screenshots/main.PNG" alt="A screenshot of the application being run in the console.">
+<img src="./images/screenshots/main.PNG" alt="A screenshot of the application being run in the console.">
 
 ## Setup
 To run, in the console enter:
