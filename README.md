@@ -1,10 +1,17 @@
+<p align="center">
+    <img src="./images/icons/web-scraping.jpg" alt="Web scraping icon." >
+    <img src="./images/icons/python.PNG" alt="Python programming language logo." widht="120%" height="150%" >
+    <img src="./images/icons/aiohttp-icon.png" alt="Aiohttp icon." width="25%"  >
+</p>
+
+
 # Book Scraper
 
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
 - [Screenshots](#screenshots)
-- [Setup](#setup)
+- [Launch](#launch)
 - [Technologies](#technologies)
 
 ## Introduction
@@ -29,7 +36,7 @@ The purpose of this application was to become more familiar with web scraping.
 ### Screenshot of Console Menu
 <img src="./images/screenshots/main.PNG" alt="A screenshot of the application being run in the console.">
 
-## Setup
+## Launch
 To run, in the console enter:
 ```
 python app.py
